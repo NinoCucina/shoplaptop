@@ -1,5 +1,5 @@
 <template>
-  <v-app :style="{ background: $vuetify.theme.themes.dark.background }">
+  <v-app>
     <side-bar-admin :drawer="drawer" />
     <div class="admin-content">
       <v-row class="header-row">
@@ -11,33 +11,33 @@
       </v-row>
       <v-row>
         <v-col>
-          <v-card class="data-card">
-            <v-table dense striped>
-              <thead>
-                <tr>
-                  <th>STT</th>
-                  <th>Mã loại SP</th>
-                  <th>Tên loại SP</th>
-                  <th>Chức năng</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(item, index) in categories" :key="index">
-                  <td>{{ index + 1 }}</td>
-                  <td>{{ item.categoryId }}</td>
-                  <td>{{ item.categoryName }}</td>
-                  <td>
-                    <v-btn color="info" class="mr-2" fab small dark @click="dialogEdit = true, currentItem = item">
-                      <v-icon>mdi-pencil</v-icon>
-                    </v-btn>
-                    <v-btn color="error" fab small dark @click="dialogDelete = true, categoryId = item.categoryId">
-                      <v-icon>mdi-delete</v-icon>
-                    </v-btn>
-                  </td>
-                </tr>
-              </tbody>
-            </v-table>
-          </v-card>
+<v-card class="data-card text-center">
+  <v-table dense striped style="width: 100%;">
+    <thead>
+      <tr style="background-color: #f5f5f5; color: #333; font-weight: bold;">
+        <th style="padding: 12px; text-align: left;">STT</th>
+        <th style="padding: 12px; text-align: left;">Mã loại SP</th>
+        <th style="padding: 12px; text-align: left;">Tên loại SP</th>
+        <th style="padding: 12px; text-align: left;">Chức năng</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(item, index) in categories" :key="index">
+        <td>{{ index + 1 }}</td>
+        <td>{{ item.categoryId }}</td>
+        <td>{{ item.categoryName }}</td>
+        <td>
+          <v-btn color="info" class="mr-2" fab small dark @click="dialogEdit = true, currentItem = item">
+            <v-icon>mdi-pencil</v-icon>
+          </v-btn>
+          <v-btn color="error" fab small dark @click="dialogDelete = true, categoryId = item.categoryId">
+            <v-icon>mdi-delete</v-icon>
+          </v-btn>
+        </td>
+      </tr>
+    </tbody>
+  </v-table>
+</v-card>
         </v-col>
       </v-row>
       <add-view
@@ -133,7 +133,7 @@
 .header-row {
   align-items: center;
   padding: 10px;
-  background-color: #2d2d2d;
+  background-color: black;
   border-radius: 8px;
   margin-bottom: 20px;
 }
