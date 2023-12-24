@@ -1,51 +1,39 @@
 <template>
-    <div class="product-list-container">
-      <v-row class="product-list-header">
-        <v-icon>mdi-home</v-icon>
-        <h3>Danh sách loại sản phẩm</h3>
-        <v-spacer></v-spacer>
-        <v-btn icon size="small" class="add-product-btn">
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
-      </v-row>
-      <v-row>
-        <v-col>
-          <v-card class="product-list-card">
-            <v-table class="product-list-table">
-              <!-- Table Head -->
-              <thead>
-                <tr>
-                  <th>STT</th>
-                  <th>Mã loại SP</th>
-                  <th>Tên loại SP</th>
-                  <th>Chức năng</th>
-                </tr>
-              </thead>
-              <!-- Table Body -->
-              <tbody>
-                <tr v-for="(item,index) in categories" :key="index">
-                  <td>{{ index+1 }}</td>
-                  <td>{{ item.categoryId }}</td>
-                  <td>{{ item.categoryName }}</td>
-                  <td class="function-buttons">
-                    <v-btn color="blue" size="x-small" icon>
-                      <v-icon>mdi-pencil</v-icon>
-                    </v-btn>
-                    <v-btn color="red" size="x-small" icon>
-                      <v-icon>mdi-delete</v-icon>
-                    </v-btn>
-                  </td>
-                </tr>
-              </tbody>
-            </v-table>
-          </v-card>
-        </v-col>
-      </v-row>
-      <!-- Add, Edit, Delete Dialogs -->
-      <add-view-dialog />
-      <edit-view-dialog />
-      <delete-confirmation-dialog />
-    </div>
+    <div>
+        <v-dialog v-model="dialog"
+         max-width="640px">
+            <v-card>
+                <v-card-tittle>
+                    <span>Cập nhật loại sản phẩm</span>
+                </v-card-tittle>
+                <v-card-text>
+                    <v-form>
+                        <v-container>
+                            <v-row>
+                                <v-col>
+                                    <v-text-field
+                                    label="Tên loại sản phẩm"
+                                    v-model="data.categoryName"
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </v-form>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        class="mr-2" 
+                        color="grey darken-3"
+                        @click="this.$emit(`close`)"
+                    >Hủy</v-btn>
+                    <v-btn
+                    color="primary"
+                    @click="updateCategory">Cập nhật</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+      </div>
   </template>
   
   <script>
@@ -95,33 +83,6 @@
   }
   </script>
   
-  <style scoped>
-.product-list-container {
-  /* Add your styles here */
-}
-
-.product-list-header {
-  /* Add your styles here */
-}
-
-.add-product-btn {
-  /* Add your styles here */
-}
-
-.product-list-card {
-  /* Add your styles here */
-}
-
-.product-list-table {
-  /* Add your styles here */
-}
-
-.function-buttons {
-  /* Add your styles here */
-}
-
-/* Add responsive design styles */
-@media (max-width: 600px) {
-  /* Add your mobile styles here */
-}
-</style>
+  <style>
+  
+  </style>
