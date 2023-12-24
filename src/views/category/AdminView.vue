@@ -1,63 +1,56 @@
 <template>
-    <v-app :style="{ background: $vuetify.theme.themes.dark.background }">
+  <v-app :style="{ background: $vuetify.theme.themes.dark.background }">
     <side-bar-admin :drawer="drawer" />
-    <div>
-      <v-row class="mt-2">
-      <v-icon>mdi-home</v-icon>
-      <h3 class="ml-2">Danh sách loại sản phẩm</h3>
-      <v-spacer></v-spacer>
-      <v-btn
-          icon
-          size="small"
-          color="#f6d365"
-          @click="dialogAdd= true"
-      >
-          <v-icon>mdi-plus</v-icon>
-      </v-btn>
-    </v-row>
-    <v-row>
-      <v-col>
-          <v-card>
-              <v-table>
-                  <thead>
-                      <tr>
-                          <th>STT</th>
-                          <th>Mã loại SP</th>
-                          <th>Tên loại SP</th>
-                          <th>Chức năng</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr v-for="(item,index) in categories" :key="index">
-                          <td>{{ index+1 }}</td>
-                          <td>{{ item. categoryId}}</td>
-                          <td>{{ item.categoryName }}</td>
-                          <td>
-                              <v-btn color="blue" class="mr-3" size="x-small" icon @click="dialogEdit = true,
-                                                                                      currentItem= item">
-                                  <v-icon>mdi-pencil</v-icon>
-                              </v-btn>
-                              <v-btn color="red" class="mr-3" size="x-small" icon @click="dialogDelete = true, categoryId = item.categoryId">
-                                  <v-icon>mdi-delete</v-icon>
-                              </v-btn>
-                          </td>
-                      </tr>
-                  </tbody>
-              </v-table>
+    <div class="admin-content">
+      <v-row class="header-row">
+        <h3 class="header-title">Danh sách loại sản phẩm</h3>
+        <v-spacer></v-spacer>
+        <v-btn icon size="large" class="add-btn" @click="dialogAdd = true">
+          <v-icon large>mdi-plus</v-icon>
+        </v-btn>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-card class="data-card">
+            <v-table dense striped>
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Mã loại SP</th>
+                  <th>Tên loại SP</th>
+                  <th>Chức năng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in categories" :key="index">
+                  <td>{{ index + 1 }}</td>
+                  <td>{{ item.categoryId }}</td>
+                  <td>{{ item.categoryName }}</td>
+                  <td>
+                    <v-btn color="info" class="mr-2" fab small dark @click="dialogEdit = true, currentItem = item">
+                      <v-icon>mdi-pencil</v-icon>
+                    </v-btn>
+                    <v-btn color="error" fab small dark @click="dialogDelete = true, categoryId = item.categoryId">
+                      <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                  </td>
+                </tr>
+              </tbody>
+            </v-table>
           </v-card>
-      </v-col>
-    </v-row>
-    <add-view
-      :dialogAdd = "dialogAdd"
-      @close="dialogAdd = false"
-      @updateData = "getCategories"
-    />
-    <edit-view
-      :dialogEdit = "dialogEdit"
-      :currentItem = "currentItem"
-      @close="dialogEdit = false"
-      @updateData = "getCategories"
-    />
+        </v-col>
+      </v-row>
+      <add-view
+        :dialogAdd = "dialogAdd"
+        @close="dialogAdd = false"
+        @updateData = "getCategories"
+      />
+      <edit-view
+        :dialogEdit = "dialogEdit"
+        :currentItem = "currentItem"
+        @close="dialogEdit = false"
+        @updateData = "getCategories"
+      />
     <v-dialog max-width="450px" v-model="dialogDelete">
       <v-card>
           <v-alert type="error">
@@ -79,9 +72,8 @@
       </v-card>
     </v-dialog>
     </div>
-
-    </v-app>
-  </template>
+  </v-app>
+</template>
   
   
   <script>
@@ -133,7 +125,77 @@
 };
   </script>
   
-  <style>
-  
-  </style>
+  <style scoped>
+.admin-content {
+  padding: 20px;
+}
+
+.header-row {
+  align-items: center;
+  padding: 10px;
+  background-color: #2d2d2d;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.header-title {
+  margin-left: 10px;
+  color: #f6d365;
+  font-weight: bold;
+  align-items: center;
+}
+
+.add-btn {
+  background-color: #f6d365;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+.data-card {
+  overflow-x: auto;
+}
+
+.v-table {
+  background-color: #1e1e1e;
+  color: white;
+  border-radius: 4px;
+}
+
+.v-table thead th {
+  background-color: #f6d365;
+  color: #2d2d2d;
+  font-weight: bold;
+}
+
+.v-table tbody tr:hover {
+  background-color: #424242;
+}
+
+.v-btn {
+  margin: 0 4px;
+}
+
+.v-btn .mdi-icon {
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .header-row, .data-card {
+    padding: 5px;
+  }
+
+  .header-title, .v-table th, .v-table td {
+    font-size: 14px;
+  }
+
+  .v-btn {
+    min-width: 30px;
+    padding: 4px;
+  }
+
+  .v-icon {
+    font-size: 18px;
+  }
+}
+</style>
   
